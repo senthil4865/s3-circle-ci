@@ -1,0 +1,21 @@
+jobs:
+  build_deploy:
+    machine:
+      image: ubuntu-2004:2022.07.1
+    steps:
+      - checkout
+      - run:
+          name: Installing AWS CLI
+          command: |
+            sudo apt-get update
+            sudo apt install python3-pip
+            sudo pip3 install awsebcli --upgrade
+      - run: npm install && npm run build
+      - run: aws s3 sync ./build s3://ci-cd-example-4861
+
+
+workflows:
+  version: 2
+  execute_bulk:
+    jobs:
+      - build_deploy
