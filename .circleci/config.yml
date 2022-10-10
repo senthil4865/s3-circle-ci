@@ -18,10 +18,10 @@ jobs:
             sudo apt install python3-pip
 
             sudo pip3 install awsebcli --upgrade
-            
+
             sudo aws --version
 
-            sudo aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ECR_ACCOUNT_URL
+            docker login -u AWS -p $(aws ecr get-login-password --region $AWS_REGION) $AWS_ECR_ACCOUNT_URL
 
             docker build -t $AWS_RESOURCE_PREFIX .
 
