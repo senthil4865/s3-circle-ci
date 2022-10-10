@@ -1,10 +1,6 @@
 version: 2
 jobs:
   build:
-    branches:
-      only:
-        - master
-        - development
       docker:
         - image: cimg/node:16.10.0
         - image: docker:17.09.1-ce-git
