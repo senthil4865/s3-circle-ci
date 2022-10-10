@@ -43,8 +43,10 @@ jobs:
             docker build -t <AWS_RESOURCE_PREFIX> .
             docker tag <AWS_RESOURCE_PREFIX>:latest <AWS_ECR_ACCOUNT_URL>/<AWS_RESOURCE_PREFIX>:latest
             docker push <AWS_ECR_ACCOUNT_URL>/<AWS_RESOURCE_PREFIX>:latest
-  # workflows:
-  #   version: 2
-  #   execute_bulk:
-  #     jobs:
-  #       - build
+  
+  
+  workflows:
+    version: 2
+    execute_bulk:
+      jobs:
+        - build
