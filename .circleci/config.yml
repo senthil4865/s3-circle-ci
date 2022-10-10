@@ -23,11 +23,11 @@ jobs:
 
             docker login -u AWS -p $(aws ecr get-login-password --region $AWS_REGION) $AWS_ECR_ACCOUNT_URL
 
-            docker build -t $AWS_RESOURCE_PREFIX .
+            docker build -t temp .
 
-            docker tag $AWS_RESOURCE_PREFIX:latest $AWS_ECR_ACCOUNT_URL/$AWS_RESOURCE_PREFIX:latest
+            docker tag temp:latest $AWS_ECR_ACCOUNT_URL/temp:latest
 
-            docker push $AWS_ECR_ACCOUNT_URL/$AWS_RESOURCE_PREFIX:latest
+            docker push $AWS_ECR_ACCOUNT_URL/temp:latest
 workflows:
   version: 2
   execute_bulk:
