@@ -1,51 +1,51 @@
+version: 2
+  jobs:
+    build:
+      branches:
+        only:
+          - master
+          - development
+        docker:
+          - image: cimg/node:16.10.0
+          - image: docker:17.09.1-ce-git
+        working_directory: ~/repo
 
-jobs:
-  build_deploy:
-    branches:
-      only:
-        - master
-        - development
-      docker:
-        - image: cimg/node:16.10.0
-        - image: docker:17.09.1-ce-git
-      working_directory: ~/repo
+      # machine:
+      #   image: ubuntu-2004:2022.07.1
+      steps:
+        - checkout
+        - setup_remote_docker
+            # Download and cache dependencies
+        - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+                # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
+      
+            # clearing the cache
+            - run: npm cache clear --force
+            # - run: rm package-lock.json
+            - run: npm install
+            - save_cache:
+              paths:
+                - node_modules
+              key: v1-dependencies-{{ checksum "package.json" }}
 
-    # machine:
-    #   image: ubuntu-2004:2022.07.1
-    steps:
-      - checkout
-      - setup_remote_docker
-          # Download and cache dependencies
-      - restore_cache:
-        keys:
-          - v1-dependencies-{{ checksum "package.json" }}
-               # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
-    
-          # clearing the cache
-          - run: npm cache clear --force
-          # - run: rm package-lock.json
-          - run: npm install
-          - save_cache:
-            paths:
-              - node_modules
-            key: v1-dependencies-{{ checksum "package.json" }}
+        - run:
+            name: Build Success
+            when: on_success
+            command:  |
+              sudo apt-get update          
+              sudo apt install python3-pip
+              sudo pip3 install awsebcli --upgrade
+              sudo aws ecr get-login-password --region <AWS_REGION> 
+              docker login --username AWS --password-stdin <AWS_ECR_ACCOUNT_URL>
+              docker build -t <AWS_RESOURCE_PREFIX> .
+              docker tag <AWS_RESOURCE_PREFIX>:latest <AWS_ECR_ACCOUNT_URL>/<AWS_RESOURCE_PREFIX>:latest
+              docker push <AWS_ECR_ACCOUNT_URL>/<AWS_RESOURCE_PREFIX>:latest
 
-      - run:
-          name: Build Success
-          when: on_success
-          command:  |
-            sudo apt-get update          
-            sudo apt install python3-pip
-            sudo pip3 install awsebcli --upgrade
-            sudo aws ecr get-login-password --region <AWS_REGION> 
-            docker login --username AWS --password-stdin <AWS_ECR_ACCOUNT_URL>
-            docker build -t <AWS_RESOURCE_PREFIX> .
-            docker tag <AWS_RESOURCE_PREFIX>:latest <AWS_ECR_ACCOUNT_URL>/<AWS_RESOURCE_PREFIX>:latest
-            docker push <AWS_ECR_ACCOUNT_URL>/<AWS_RESOURCE_PREFIX>:latest
-
-workflows:
-  version: 2
-  execute_bulk:
-    jobs:
-      - build_deploy
+  workflows:
+    version: 2
+    execute_bulk:
+      jobs:
+        - build
