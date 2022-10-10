@@ -28,8 +28,30 @@ jobs:
             docker tag temp:latest $AWS_ECR_ACCOUNT_URL/temp:latest
 
             docker push $AWS_ECR_ACCOUNT_URL/temp:latest
+  
+  deploy:
+    docker:
+      - image: 'cimg./node:16.0.0'
+    working_directory: ~/repo  
+    steps:
+      - setup_remote_docker
+      - run:
+          name: Deploy
+          when: on_success
+          command: >
+            
+            docker login -u AWS -p $(aws ecr get-login-password --region $AWS_REGION) $AWS_ECR_ACCOUNT_URL
+
+            docker pull $AWS_ECR_ACCOUNT_URL/$AWS_RESOURCE_NAME_PREFIX:latest 
+            
+            docker run -p 80:3000 -d $AWS_ECR_ACCOUNT_URL/$AWS_RESOURCE_NAME_PREFIX
+
+
 workflows:
   version: 2
   execute_bulk:
     jobs:
       - build
+      - deploy:
+          requires:
+            - build 
