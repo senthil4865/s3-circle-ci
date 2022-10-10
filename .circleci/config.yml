@@ -8,16 +8,7 @@ jobs:
     steps:
       - checkout
       - setup_remote_docker
-      - restore_cache: null
-        keys:
-          - 'v1-dependencies-{{ checksum "package.json" }}'
-          - v1-dependencies-
-          - run: npm cache clear --force
-          - run: npm install
-          - save_cache: null
-            paths:
-              - node_modules
-            key: 'v1-dependencies-{{ checksum "package.json" }}'
+      - run: npm install
       - run:
           name: Build Success
           when: on_success
