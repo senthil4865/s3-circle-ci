@@ -92,7 +92,7 @@ jobs:
  
             docker pull $AWS_ECR_ACCOUNT_URL/temp:latest  \
 
-            docker run -p 80:3000 -d $AWS_ECR_ACCOUNT_URL/temp 
+            docker run --publish 80:3000 -d $AWS_ECR_ACCOUNT_URL/temp 
 
 
             # 8- Remove the ingress rule
