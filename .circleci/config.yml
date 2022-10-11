@@ -75,7 +75,7 @@ jobs:
             SG_ID=sg-063df30c3645fd454
             
             # 5- Add an ingress rule to the security group
-            aws ec2 authorize-security-group-ingress --region $AWS_REGION --group-id $SG_ID --protocol tcp --port 22 --cidr $PUBLIC_IP/32
+            aws ec2 authorize-security-group-ingress --region ap-south-1 --group-id $SG_ID --protocol tcp --port 22 --cidr $PUBLIC_IP/32
             
             # 6- Give the ingress rule some time to propogate
             sleep 5
@@ -96,7 +96,7 @@ jobs:
 
 
             # 8- Remove the ingress rule
-            aws ec2 revoke-security-group-ingress --region $AWS_REGION --group-id $SG_ID \
+            aws ec2 revoke-security-group-ingress --region ap-south-1 --group-id $SG_ID \
               --protocol tcp --port 22 --cidr $PUBLIC_IP/32 
           
 workflows:
