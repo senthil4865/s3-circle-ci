@@ -50,9 +50,15 @@ jobs:
           when: on_success
           command: >
 
-            sudo apt-get install python3
+            sudo apt-get update
 
-            sudo curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip" 
+            sudo apt install python3-pip
+             
+            sudo apt-get install -y awscli 
+
+            sudo aws --version 
+
+            curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip" 
             
             unzip awscli-bundle.zip 
             
