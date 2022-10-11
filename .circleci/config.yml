@@ -49,7 +49,7 @@ jobs:
           name: Deploy
           when: on_success
           command: >
-            # 1- Install AWS CLI
+
             curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip"
             unzip awscli-bundle.zip
             ./awscli-bundle/install -b ~/bin/aws
