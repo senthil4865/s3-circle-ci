@@ -88,15 +88,14 @@ jobs:
             # TODO Change to your server's URL or public IP
             EC2_PUBLIC_DNS=ec2-3-108-66-178.ap-south-1.compute.amazonaws.com
             
-            ssh -o StrictHostKeyChecking=no ec2-user@ec2-3-108-66-178.ap-south-1.compute.amazonaws.com  \
-
+            ssh -o StrictHostKeyChecking=no ec2-user@ec2-3-108-66-178.ap-south-1.compute.amazonaws.com  &
             docker pull $AWS_ECR_ACCOUNT_URL/temp
      
       - run:
           name: 'Stopping Containers'
           command: >
 
-            ssh -o StrictHostKeyChecking=no ec2-user@ec2-3-108-66-178.ap-south-1.compute.amazonaws.com  \
+            ssh -o StrictHostKeyChecking=no ec2-user@ec2-3-108-66-178.ap-south-1.compute.amazonaws.com  &
 
             docker stop $AWS_ECR_ACCOUNT_URL/temp         
             
@@ -104,7 +103,7 @@ jobs:
           name: 'Removing Containers'
           command: >
 
-            ssh -o StrictHostKeyChecking=no ec2-user@ec2-3-108-66-178.ap-south-1.compute.amazonaws.com  \
+            ssh -o StrictHostKeyChecking=no ec2-user@ec2-3-108-66-178.ap-south-1.compute.amazonaws.com  &
 
             docker rm $AWS_ECR_ACCOUNT_URL/temp      
              
@@ -112,7 +111,7 @@ jobs:
           name: 'Run Containers'
           command: >
 
-            ssh -o StrictHostKeyChecking=no ec2-user@ec2-3-108-66-178.ap-south-1.compute.amazonaws.com  \
+            ssh -o StrictHostKeyChecking=no ec2-user@ec2-3-108-66-178.ap-south-1.compute.amazonaws.com  &
 
             docker run -p 80:3000 -d $AWS_ECR_ACCOUNT_URL/temp 
 
