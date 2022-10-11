@@ -86,7 +86,7 @@ jobs:
             # TODO Change to your server's URL or public IP
             EC2_PUBLIC_DNS=ec2-3-108-66-178.ap-south-1.compute.amazonaws.com
             
-            ssh -o StrictHostKeyChecking=no ec2-user@ec2-3-108-66-178.ap-south-1.compute.amazonaws.com  &&          
+            ssh -o StrictHostKeyChecking=no ec2-user@ec2-3-108-66-178.ap-south-1.compute.amazonaws.com  \          
              
             docker login -u AWS -p $(aws ecr get-login-password --region $AWS_REGION) $AWS_ECR_ACCOUNT_URL &&
 
