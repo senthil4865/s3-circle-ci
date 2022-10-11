@@ -90,9 +90,9 @@ jobs:
 
             docker login -u AWS -p $(aws ecr get-login-password --region $AWS_REGION) $AWS_ECR_ACCOUNT_URL  \        
  
-            docker pull $AWS_ECR_ACCOUNT_URL/temp:latest \
+            docker pull $AWS_ECR_ACCOUNT_URL/temp:latest  \
 
-            docker run -p 80:3000 -d $AWS_ECR_ACCOUNT_URL/temp 
+            # docker run -p 80:3000 -d $AWS_ECR_ACCOUNT_URL/temp 
 
 
             # 8- Remove the ingress rule
