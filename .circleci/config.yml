@@ -96,10 +96,6 @@ jobs:
           name: 'Logging in to ec2'
           command: >
 
-            docker login -u AWS -p $(aws ecr get-login-password --region $AWS_REGION) $AWS_ECR_ACCOUNT_URL 
-
-            docker pull $AWS_ECR_ACCOUNT_URL/temp 
-
             docker run -p 80:3000 -d $AWS_ECR_ACCOUNT_URL/temp 
  
 
