@@ -50,9 +50,9 @@ jobs:
           when: on_success
           command: >
 
-            apt-get install python3
+            sudo apt-get install python3
 
-            curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip" 
+            sudo curl "https://s3.amazonaws.com/aws-cli/awscli-bundle.zip" -o "awscli-bundle.zip" 
             
             unzip awscli-bundle.zip 
             
@@ -81,11 +81,11 @@ jobs:
             
             ssh -o StrictHostKeyChecking=no $EC2_USERNAME@$EC2_PUBLIC_DNS \
 
-            docker login -u AWS -p $(aws ecr get-login-password --region $AWS_REGION) $AWS_ECR_ACCOUNT_URL           
+            sudo docker login -u AWS -p $(aws ecr get-login-password --region $AWS_REGION) $AWS_ECR_ACCOUNT_URL           
  
-            docker pull $AWS_ECR_ACCOUNT_URL/temp:latest
+            sudo docker pull $AWS_ECR_ACCOUNT_URL/temp:latest
 
-            docker run -p 80:3000 -d $AWS_ECR_ACCOUNT_URL/temp
+            sudo docker run -p 80:3000 -d $AWS_ECR_ACCOUNT_URL/temp
 
 
             # 8- Remove the ingress rule
