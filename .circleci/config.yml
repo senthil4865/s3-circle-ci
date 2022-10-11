@@ -88,11 +88,11 @@ jobs:
             
             ssh -o StrictHostKeyChecking=no ec2-user@ec2-3-108-66-178.ap-south-1.compute.amazonaws.com \
 
-            docker login -u AWS -p $(aws ecr get-login-password --region ap-south-1) 764941139426.dkr.ecr.ap-south-1.amazonaws.com           
+            sudo docker login -u AWS -p $(aws ecr get-login-password --region ap-south-1) 764941139426.dkr.ecr.ap-south-1.amazonaws.com           
  
-            docker pull 764941139426.dkr.ecr.ap-south-1.amazonaws.com/temp:latest
+            sudo docker pull 764941139426.dkr.ecr.ap-south-1.amazonaws.com/temp:latest
 
-            docker run -p 80:3000 -d 764941139426.dkr.ecr.ap-south-1.amazonaws.com/temp
+            sudo docker run -p 80:3000 -d 764941139426.dkr.ecr.ap-south-1.amazonaws.com/temp
 
 
             # 8- Remove the ingress rule
