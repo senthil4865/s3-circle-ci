@@ -89,32 +89,32 @@ jobs:
             EC2_PUBLIC_DNS=ec2-3-108-66-178.ap-south-1.compute.amazonaws.com
             
             ssh -o StrictHostKeyChecking=no ec2-user@ec2-3-108-66-178.ap-south-1.compute.amazonaws.com  \
-            docker pull $AWS_ECR_ACCOUNT_URL/temp & exit
+            bash deploy.sh
             
      
-      - run:
-          name: 'Stopping Containers'
-          command: >
+      # - run:
+      #     name: 'Stopping Containers'
+      #     command: >
 
-            ssh -o StrictHostKeyChecking=no ec2-user@ec2-3-108-66-178.ap-south-1.compute.amazonaws.com  &
+      #       ssh -o StrictHostKeyChecking=no ec2-user@ec2-3-108-66-178.ap-south-1.compute.amazonaws.com  &
 
-            docker stop $AWS_ECR_ACCOUNT_URL/temp & exit        
+      #       docker stop $AWS_ECR_ACCOUNT_URL/temp & exit        
             
-      - run:
-          name: 'Removing Containers'
-          command: >
+      # - run:
+      #     name: 'Removing Containers'
+      #     command: >
 
-            ssh -o StrictHostKeyChecking=no ec2-user@ec2-3-108-66-178.ap-south-1.compute.amazonaws.com  &
+      #       ssh -o StrictHostKeyChecking=no ec2-user@ec2-3-108-66-178.ap-south-1.compute.amazonaws.com  &
 
-            docker rm $AWS_ECR_ACCOUNT_URL/temp & exit     
+      #       docker rm $AWS_ECR_ACCOUNT_URL/temp & exit     
              
-      - run:
-          name: 'Run Containers'
-          command: >
+      # - run:
+      #     name: 'Run Containers'
+      #     command: >
 
-            ssh -o StrictHostKeyChecking=no ec2-user@ec2-3-108-66-178.ap-south-1.compute.amazonaws.com  &
+      #       ssh -o StrictHostKeyChecking=no ec2-user@ec2-3-108-66-178.ap-south-1.compute.amazonaws.com  &
 
-            docker run -p 80:3000 -d $AWS_ECR_ACCOUNT_URL/temp & exit
+      #       docker run -p 80:3000 -d $AWS_ECR_ACCOUNT_URL/temp & exit
 
  
           
@@ -122,7 +122,7 @@ workflows:
   version: 2
   execute_bulk:
     jobs:
-      - deploy
-      # - deploy:
-      #     requires:
-      #       - build 
+      - build
+      - deploy:
+          requires:
+            - build 
