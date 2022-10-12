@@ -87,9 +87,9 @@ jobs:
             EC2_USERNAME=ec2-user
             # TODO Change to your server's URL or public IP
             EC2_PUBLIC_DNS=ec2-3-108-66-178.ap-south-1.compute.amazonaws.com
-            
-            ssh -o StrictHostKeyChecking=no ec2-user@ec2-3-108-66-178.ap-south-1.compute.amazonaws.com  \
             chmod +x .circleci/deploy.sh
+            scp .circleci/deploy.sh ec2-user@ec2-3-108-66-178.ap-south-1.compute.amazonaws.com:/deploy
+            # ssh -o StrictHostKeyChecking=no ec2-user@ec2-3-108-66-178.ap-south-1.compute.amazonaws.com:/<path>
             
      
       # - run:
@@ -122,7 +122,7 @@ workflows:
   version: 2
   execute_bulk:
     jobs:
-      - build
-      - deploy:
-          requires:
-            - build 
+      - deploy
+      # - deploy:
+      #     requires:
+      #       - build 
