@@ -90,7 +90,7 @@ jobs:
             
             chmod +x .circleci/deploy.sh
             
-            sudo scp -o StrictHostKeyChecking=no -r .circleci/deploy.sh ec2-user@ec2-3-108-66-178.ap-south-1.compute.amazonaws.com:~/
+            sudo scp -o StrictHostKeyChecking=no -v -r .circleci/deploy.sh ec2-user@ec2-3-108-66-178.ap-south-1.compute.amazonaws.com:~/
 
             # ssh -o StrictHostKeyChecking=no ec2-user@ec2-3-108-66-178.ap-south-1.compute.amazonaws.com  \
 
