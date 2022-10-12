@@ -92,7 +92,7 @@ jobs:
             
             ssh -o StrictHostKeyChecking=no ec2-user@ec2-3-108-66-178.ap-south-1.compute.amazonaws.com \
 
-            scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null .circleci/deploy.sh ec2-user@ec2-3-108-66-178.ap-south-1.compute.amazonaws.com:/deploy
+            scp -o StrictHostKeyChecking=no .circleci/deploy.sh ec2-user@ec2-3-108-66-178.ap-south-1.compute.amazonaws.com:/deploy
              
             
      
