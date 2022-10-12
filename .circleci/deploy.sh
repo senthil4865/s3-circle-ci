@@ -10,8 +10,8 @@ CONTAINER_NAME='sales-frontend'
 CID=$(docker ps -q -f status=running -f name=^/${CONTAINER_NAME}$)
 if [ "${CID}" ]; then
   echo "Container exists"
-  docker stop 764941139426.dkr.ecr.ap-south-1.amazonaws.com/temp:latest
-  docker rm 764941139426.dkr.ecr.ap-south-1.amazonaws.com/temp:latest
+  docker stop sales-frontend
+  docker rm sales-frontend
 fi
 
 # docker stop $AWS_ECR_ACCOUNT_URL/temp
