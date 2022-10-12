@@ -77,7 +77,7 @@ jobs:
             SG_ID=sg-063df30c3645fd454
             
             # 5- Add an ingress rule to the security group
-            # aws ec2 authorize-security-group-ingress --region ap-south-1 --group-id $SG_ID --protocol tcp --port 22 --cidr $PUBLIC_IP/32
+            aws ec2 authorize-security-group-ingress --region ap-south-1 --group-id $SG_ID --protocol tcp --port 22 --cidr $PUBLIC_IP/32
             
             # 6- Give the ingress rule some time to propogate
             # sleep 5
@@ -88,7 +88,8 @@ jobs:
             # TODO Change to your server's URL or public IP
             EC2_PUBLIC_DNS=ec2-3-108-66-178.ap-south-1.compute.amazonaws.com
             chmod +x .circleci/deploy.sh
-            ssh -o StrictHostKeyChecking=no ec2-user@ec2-3-108-66-178.ap-south-1.compute.amazonaws.com scp .circleci/deploy.sh ec2-user@ec2-3-108-66-178.ap-south-1.compute.amazonaws.com:/deploy
+            ssh -o StrictHostKeyChecking=no ec2-user@ec2-3-108-66-178.ap-south-1.compute.amazonaws.com \
+            scp .circleci/deploy.sh ec2-user@ec2-3-108-66-178.ap-south-1.compute.amazonaws.com:/deploy
              
             
      
