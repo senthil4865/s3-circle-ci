@@ -9,6 +9,7 @@ echo "Pull complete"
 if [ "$( docker container inspect -f '{{.State.Status}}' 764941139426.dkr.ecr.ap-south-1.amazonaws.com/temp:latest )" == "running" ];
 
 then
+echo "container running"
 docker stop 764941139426.dkr.ecr.ap-south-1.amazonaws.com/temp:latest
 docker rm 764941139426.dkr.ecr.ap-south-1.amazonaws.com/temp:latest
 
