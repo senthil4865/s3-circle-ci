@@ -7,7 +7,7 @@ docker pull 764941139426.dkr.ecr.ap-south-1.amazonaws.com/temp:latest
 echo "Pull complete"
 
 CONTAINER_NAME='sales-frontend'
-
+CID=$(docker ps -q -f status=running -f name=^/${CONTAINER_NAME}$)
 if [ "${CID}" ]; then
   echo "Container exists"
   docker stop 764941139426.dkr.ecr.ap-south-1.amazonaws.com/temp:latest
