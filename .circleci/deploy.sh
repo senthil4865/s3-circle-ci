@@ -6,7 +6,7 @@ echo "Pulling a image"
 docker pull 764941139426.dkr.ecr.ap-south-1.amazonaws.com/temp:latest
 echo "Pull complete"
 
-CONTAINER_NAME='764941139426.dkr.ecr.ap-south-1.amazonaws.com/temp:latest'
+CONTAINER_NAME='sales-frontend'
 
 if [ "${CID}" ]; then
   echo "Container exists"
@@ -16,4 +16,4 @@ fi
 
 # docker stop $AWS_ECR_ACCOUNT_URL/temp
 # docker rm $AWS_ECR_ACCOUNT_URL/temp
-docker run -p 80:3000 -d 764941139426.dkr.ecr.ap-south-1.amazonaws.com/temp:latest
+docker run --name sales-frontend -p 80:3000 -d 764941139426.dkr.ecr.ap-south-1.amazonaws.com/temp:latest
