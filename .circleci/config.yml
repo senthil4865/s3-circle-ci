@@ -129,7 +129,7 @@ workflows:
   version: 2
   execute_bulk:
     jobs:
-      - deploy
-      # - deploy:
-      #     requires:
-      #       - build 
+      - build
+      - deploy:
+          requires:
+            - build 
